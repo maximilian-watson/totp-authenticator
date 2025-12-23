@@ -3,6 +3,7 @@ Tests for QR code generator
 """
 import os
 import tempfile
+import pytest
 
 from PIL import Image
 from qr_generator import QRGenerator
@@ -34,3 +35,23 @@ def test_generate_qr_code_basic():
     finally:
         if os.path.exists(temp_path):
             os.unlink(temp_path)
+
+def test_generate_qr_code_empty_data():
+    """Test that empty data raises ValueError"""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        filename = os.path.join(temp_dir, "test.png")
+
+        # Test empty string
+        with pytest.raises(ValueError) as exc_info:
+            QRGenerator.generate_qr_code("", filename)
+
+        error_msg = str(exc_info.value) 
+        assert "Data must be a non empty string" == error_msg
+        
+        # Test None
+        with pytest.raises(ValueError) as exc_info:
+            QRGenerator.generate_qr_code(None, filename)
+        
+        error_msg = str(exc_info.value)
+        assert "Data must be a non empty string" == error_msg
+        
