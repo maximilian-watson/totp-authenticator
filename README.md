@@ -1,15 +1,15 @@
 # totp-authenticator
 
-A Python implementation of Time based On Time Password (TOTP) generation, similar to the Google Authenticator. This project demonstrates Two Factor Authentication (2FA) in the real world, with 100% test coverage and CI automation.
+A Python TOTP utility built with PyOTP. This project demonstrates Two Factor Authentication (2FA) in the real world, with 100% test coverage and CI automation.
 
 ## Features
 
 - Generate TOTP codes
 - Create QR codes for easy setup with authenticator apps
-- Verifying TOTP codes with time drift tolerance
+- Verify TOTP codes with time drift tolerance
 - Command-line interface
 - Comprehensive testing, 100% coverage
-- CI/CD pipeline with GitHub Actions
+- Continuous integration with GitHub Actions
 
 ## How TOTP Works
 TOTP generates a 6 digit code that changes every 30 secondes. It combines:
@@ -36,6 +36,11 @@ TOTP generates a 6 digit code that changes every 30 secondes. It combines:
     - Take modulo 1,000,000 for the final 6 digit code
     - This process is repeated every 30 seconds, generating new codes in sync with the authenticator app
 
+## Requirements
+
+- Python 3.12
+- pip
+
 # Quick Start
 
 ```bash
@@ -43,8 +48,15 @@ TOTP generates a 6 digit code that changes every 30 secondes. It combines:
 git clone https://github.com/maximilian-watson/totp-authenticator.git
 cd totp-authenticator
 
-# Install dependencies
+```
+
+python3.12 -m venv .venv
+source .venv/bin/activate
+
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
+
+```
 
 # Run the example
 python example_usage.py
@@ -57,10 +69,8 @@ python example_usage.py
 pip install -r requirements-dev.txt
 
 # Run tests with coverage
-pytest tests/ -v --cov=src --cov-report=html
+PYTHONPATH=src python -m pytest
 
-# Open coverage report
-open htmlcov/index.html
 ```
 
 # Acknowledgments
